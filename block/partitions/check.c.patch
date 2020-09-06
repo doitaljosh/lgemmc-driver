@@ -1,0 +1,8 @@
+#include "lgemmc.h"
+
+Inside check_part
+
+#ifdef CONFIG_LGEMMC_PARTITION
+	lgemmc_partition,	/* this must come before msdos */
+#endif
+

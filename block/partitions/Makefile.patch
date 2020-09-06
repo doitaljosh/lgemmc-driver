@@ -1,0 +1,1 @@
+obj-$(CONFIG_LGEMMC_PARTITION) += lgemmc.o

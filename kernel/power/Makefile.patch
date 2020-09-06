@@ -1,0 +1,1 @@
+obj-$(CONFIG_LG_SNAPSHOT_BOOT)  += rawdev_snapshot_io.o

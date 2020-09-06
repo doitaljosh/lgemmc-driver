@@ -1,0 +1,5 @@
+config LGEMMC_PARTITION
+	bool "LG DTV(EMMC partition tables) support" if PARTITION_ADVANCED
+	help
+	  Say Y here.
+	  

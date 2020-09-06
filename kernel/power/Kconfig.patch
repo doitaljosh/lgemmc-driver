@@ -1,0 +1,52 @@
+config LG_SNAPSHOT_BOOT
+	bool "Support LG snapshot boot feature (based on mainline hibernation and swsusp features)"
+	depends on HIBERNATION
+	default n
+
+config LG_SNAPSHOT_DENY_STATE
+	bool "Disable /sys/power/state for security reason"
+	depends on LG_SNAPSHOT_BOOT
+	default n
+	---help---
+	  disable /sys/power/state for security reason. please use /dev/lgsnap
+
+config LG_SNAPSHOT_SECURE_BOOT
+	bool "Support LG secure boot for snapshot image"
+	depends on LG_SNAPSHOT_BOOT
+	default n
+	---help---
+	  LG has its own secure boot feature and snapshot image also should be
+	  verified by that feature with HW secure engine(SE) block.
+
+config LG_HIBERNATION_HACK
+       bool "Enable LG hibernation hack"
+       depends on LG_SNAPSHOT_BOOT
+       default n
+       ---help---
+         In case of LG snapshot boot, only read-only file-system can be included
+         in the snapshot image because the image is created only once at first boot.
+
+         However, original mainline hibernation feature needs to support read-write
+         file-system by creating the image every time when the system goes to "power
+         down" state. To support this, we need to add some hacks on the codes for
+         LG snapshot boot.
+
+         Also, in order to debug hibernation feature easily, some debug features
+         will be added with this configuration.
+
+config LG_CRC_UNCOMPRESS_DATA
+	bool "Support CRC check for uncompressed data"
+	depends on LG_HIBERNATION_HACK
+	default n
+
+config LG_INSTANT_BOOT
+	bool "Enable LG instant boot"
+	depends on SUSPEND
+	default n
+
+config LG_INSTANT_DENY_PM_TEST
+	bool "Disable /sys/power/pm_test for security reason"
+	depends on LG_INSTANT_BOOT && PM_DEBUG
+	default n
+	---help---
+	  disable /sys/power/pm_test for security reason.
